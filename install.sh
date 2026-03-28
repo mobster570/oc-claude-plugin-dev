@@ -44,6 +44,7 @@ fi
 mkdir -p "$INSTALL_DIR/skills"
 mkdir -p "$INSTALL_DIR/agents"
 mkdir -p "$INSTALL_DIR/commands"
+mkdir -p "$INSTALL_DIR/plugins"
 
 shopt -s nullglob
 
@@ -63,6 +64,12 @@ done
 echo "Installing commands..."
 for cmd in "$SOURCE_DIR/commands"/*; do
     cp -R "$cmd" "$INSTALL_DIR/commands/"
+done
+
+# Copy plugins
+echo "Installing plugins..."
+for plugin in "$SOURCE_DIR/plugins"/*; do
+    cp -R "$plugin" "$INSTALL_DIR/plugins/"
 done
 
 # Summary
@@ -90,6 +97,13 @@ echo "  Commands (${#commands[@]}):"
 for cmd in "${commands[@]}"; do
     [ -e "$cmd" ] || continue
     echo "    - $(basename "$cmd")"
+done
+
+plugins=("$INSTALL_DIR/plugins"/*)
+echo "  Plugins (${#plugins[@]}):"
+for plugin in "${plugins[@]}"; do
+    [ -e "$plugin" ] || continue
+    echo "    - $(basename "$plugin")"
 done
 
 echo ""

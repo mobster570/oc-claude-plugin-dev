@@ -49,6 +49,7 @@ if (Test-Path $InstallDir) {
 New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "skills") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "agents") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "commands") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "plugins") | Out-Null
 
 # Copy skills
 Write-Host "Installing skills..."
@@ -66,6 +67,12 @@ Get-ChildItem (Join-Path $SourceDir "agents") -Force | ForEach-Object {
 Write-Host "Installing commands..."
 Get-ChildItem (Join-Path $SourceDir "commands") -Force | ForEach-Object {
     Copy-Item -Path $_.FullName -Destination (Join-Path $InstallDir "commands\") -Recurse -Force
+}
+
+# Copy plugins
+Write-Host "Installing plugins..."
+Get-ChildItem (Join-Path $SourceDir "plugins") -Force | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination (Join-Path $InstallDir "plugins\") -Recurse -Force
 }
 
 # Summary
@@ -87,6 +94,11 @@ $commands = Get-ChildItem (Join-Path $InstallDir "commands") -Filter "*.md" -Err
 Write-Host "  Commands ($($commands.Count)):"
 foreach ($cmd in $commands) {
     Write-Host "    - $($cmd.Name)"
+}
+$plugins = Get-ChildItem (Join-Path $InstallDir "plugins") -ErrorAction SilentlyContinue
+Write-Host "  Plugins ($($plugins.Count)):"
+foreach ($plugin in $plugins) {
+    Write-Host "    - $($plugin.Name)"
 }
 Write-Host ""
 if ($InstallMode -eq "global") {
