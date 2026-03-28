@@ -1,67 +1,96 @@
 # install.ps1 — Install Claude Code Plugins for OpenCode
-# Usage: .\install.ps1 [-TargetDir <path>]
-# Default target: current directory
+# Usage:
+#   .\install.ps1                     # Global install to ~/.config/opencode/
+#   .\install.ps1 -TargetDir <path>   # Project-local install to <path>/.opencode/
 
 param(
-    [string]$TargetDir = (Get-Location).Path
+    [string]$TargetDir
 )
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$SourceDir = Join-Path $ScriptDir ".opencode"
 
-Write-Host "Installing Claude Code Plugins for OpenCode..."
-Write-Host "Source: $ScriptDir"
-Write-Host "Target: $TargetDir"
+if ($TargetDir) {
+    # Project-local install
+    $InstallDir = Join-Path $TargetDir ".opencode"
+    $InstallMode = "project-local"
+} else {
+    # Global install
+    $InstallDir = Join-Path $HOME ".config\opencode"
+    $InstallMode = "global"
+}
+
+# Guard: source == target
+$ResolvedSource = (Resolve-Path $SourceDir -ErrorAction SilentlyContinue)
+$ResolvedInstall = (Resolve-Path $InstallDir -ErrorAction SilentlyContinue)
+if ($ResolvedSource -and $ResolvedInstall) {
+    $S = $ResolvedSource.Path.TrimEnd('\', '/')
+    $I = $ResolvedInstall.Path.TrimEnd('\', '/')
+    if ($S -eq $I) {
+        Write-Host "Source and install directory are the same: $S"
+        Write-Host "Nothing to copy — plugin files are already in place."
+        exit 0
+    }
+}
+
+Write-Host "Installing Claude Code Plugins for OpenCode ($InstallMode)..."
+Write-Host "Source: $SourceDir"
+Write-Host "Target: $InstallDir"
 Write-Host ""
 
-# Check if target .opencode/ already exists
-if (Test-Path "$TargetDir\.opencode") {
-    Write-Warning ".opencode directory already exists at $TargetDir\.opencode"
+# Check if target already exists
+if (Test-Path $InstallDir) {
+    Write-Warning "Directory already exists at $InstallDir"
     Write-Host "Merging into existing directory (existing files may be overwritten)."
     Write-Host ""
 }
 
 # Create target directories
-New-Item -ItemType Directory -Force -Path "$TargetDir\.opencode\skills" | Out-Null
-New-Item -ItemType Directory -Force -Path "$TargetDir\.opencode\agents" | Out-Null
-New-Item -ItemType Directory -Force -Path "$TargetDir\.opencode\commands" | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "skills") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "agents") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "commands") | Out-Null
 
-# Copy skills (8 skill directories)
+# Copy skills
 Write-Host "Installing skills..."
-Get-ChildItem "$ScriptDir\.opencode\skills" -Force | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination "$TargetDir\.opencode\skills\" -Recurse -Force
+Get-ChildItem (Join-Path $SourceDir "skills") -Force | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination (Join-Path $InstallDir "skills\") -Recurse -Force
 }
 
-# Copy agents (4 agent files)
+# Copy agents
 Write-Host "Installing agents..."
-Get-ChildItem "$ScriptDir\.opencode\agents" -Force | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination "$TargetDir\.opencode\agents\" -Recurse -Force
+Get-ChildItem (Join-Path $SourceDir "agents") -Force | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination (Join-Path $InstallDir "agents\") -Recurse -Force
 }
 
-# Copy commands (1 command file)
+# Copy commands
 Write-Host "Installing commands..."
-Get-ChildItem "$ScriptDir\.opencode\commands" -Force | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination "$TargetDir\.opencode\commands\" -Recurse -Force
+Get-ChildItem (Join-Path $SourceDir "commands") -Force | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination (Join-Path $InstallDir "commands\") -Recurse -Force
 }
 
 # Summary
 Write-Host ""
-Write-Host "Installation complete!"
+Write-Host "Installation complete! ($InstallMode)"
 Write-Host ""
 Write-Host "Installed components:"
-$skills = Get-ChildItem "$TargetDir\.opencode\skills" -Directory -ErrorAction SilentlyContinue
+$skills = Get-ChildItem (Join-Path $InstallDir "skills") -Directory -ErrorAction SilentlyContinue
 Write-Host "  Skills ($($skills.Count)):"
 foreach ($skill in $skills) {
     Write-Host "    - $($skill.Name)"
 }
-$agents = Get-ChildItem "$TargetDir\.opencode\agents" -Filter "*.md" -ErrorAction SilentlyContinue
+$agents = Get-ChildItem (Join-Path $InstallDir "agents") -Filter "*.md" -ErrorAction SilentlyContinue
 Write-Host "  Agents ($($agents.Count)):"
 foreach ($agent in $agents) {
     Write-Host "    - $($agent.Name)"
 }
-$commands = Get-ChildItem "$TargetDir\.opencode\commands" -Filter "*.md" -ErrorAction SilentlyContinue
+$commands = Get-ChildItem (Join-Path $InstallDir "commands") -Filter "*.md" -ErrorAction SilentlyContinue
 Write-Host "  Commands ($($commands.Count)):"
 foreach ($cmd in $commands) {
     Write-Host "    - $($cmd.Name)"
 }
 Write-Host ""
-Write-Host "Usage: Restart OpenCode in your project directory to load the new components."
+if ($InstallMode -eq "global") {
+    Write-Host "Global plugins loaded automatically. Restart OpenCode to apply."
+} else {
+    Write-Host "Restart OpenCode in your project directory to load the new components."
+}

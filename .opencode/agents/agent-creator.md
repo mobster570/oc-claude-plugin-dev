@@ -5,7 +5,7 @@ description: >-
   functionality they need for a Claude Code plugin.
 mode: subagent
 model: anthropic/claude-sonnet-4-5
-color: magenta
+color: "#FF00FF"
 permission:
   edit: allow
 ---

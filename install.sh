@@ -1,71 +1,91 @@
 #!/bin/bash
 # install.sh — Install Claude Code Plugins for OpenCode
-# Usage: bash install.sh [target-directory]
-# Default target: current directory
+# Usage:
+#   bash install.sh                  # Global install to ~/.config/opencode/
+#   bash install.sh <target-dir>     # Project-local install to <target-dir>/.opencode/
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGET_DIR="${1:-$(pwd)}"
+SOURCE_DIR="$SCRIPT_DIR/.opencode"
 
-echo "Installing Claude Code Plugins for OpenCode..."
-echo "Source: $SCRIPT_DIR"
-echo "Target: $TARGET_DIR"
+if [ -n "$1" ]; then
+    # Project-local install
+    INSTALL_DIR="$1/.opencode"
+    INSTALL_MODE="project-local"
+else
+    # Global install
+    INSTALL_DIR="$HOME/.config/opencode"
+    INSTALL_MODE="global"
+fi
+
+# Guard: source == target
+RESOLVED_SOURCE="$(cd "$SOURCE_DIR" 2>/dev/null && pwd)"
+RESOLVED_INSTALL="$(cd "$INSTALL_DIR" 2>/dev/null && pwd)" 2>/dev/null || true
+if [ -n "$RESOLVED_SOURCE" ] && [ -n "$RESOLVED_INSTALL" ] && [ "$RESOLVED_SOURCE" = "$RESOLVED_INSTALL" ]; then
+    echo "Source and install directory are the same: $RESOLVED_SOURCE"
+    echo "Nothing to copy — plugin files are already in place."
+    exit 0
+fi
+
+echo "Installing Claude Code Plugins for OpenCode ($INSTALL_MODE)..."
+echo "Source: $SOURCE_DIR"
+echo "Target: $INSTALL_DIR"
 echo ""
 
-# Check if target .opencode/ already exists
-if [ -d "$TARGET_DIR/.opencode" ]; then
-    echo "WARNING: $TARGET_DIR/.opencode already exists."
+# Check if target already exists
+if [ -d "$INSTALL_DIR" ]; then
+    echo "WARNING: $INSTALL_DIR already exists."
     echo "Merging into existing directory (existing files may be overwritten)."
     echo ""
 fi
 
 # Create target directories
-mkdir -p "$TARGET_DIR/.opencode/skills"
-mkdir -p "$TARGET_DIR/.opencode/agents"
-mkdir -p "$TARGET_DIR/.opencode/commands"
+mkdir -p "$INSTALL_DIR/skills"
+mkdir -p "$INSTALL_DIR/agents"
+mkdir -p "$INSTALL_DIR/commands"
 
 shopt -s nullglob
 
-# Copy skills (8 skill directories)
+# Copy skills
 echo "Installing skills..."
-for skill in "$SCRIPT_DIR/.opencode/skills"/*; do
-    cp -R "$skill" "$TARGET_DIR/.opencode/skills/"
+for skill in "$SOURCE_DIR/skills"/*; do
+    cp -R "$skill" "$INSTALL_DIR/skills/"
 done
 
-# Copy agents (4 agent files)
+# Copy agents
 echo "Installing agents..."
-for agent in "$SCRIPT_DIR/.opencode/agents"/*; do
-    cp -R "$agent" "$TARGET_DIR/.opencode/agents/"
+for agent in "$SOURCE_DIR/agents"/*; do
+    cp -R "$agent" "$INSTALL_DIR/agents/"
 done
 
-# Copy commands (1 command file)
+# Copy commands
 echo "Installing commands..."
-for cmd in "$SCRIPT_DIR/.opencode/commands"/*; do
-    cp -R "$cmd" "$TARGET_DIR/.opencode/commands/"
+for cmd in "$SOURCE_DIR/commands"/*; do
+    cp -R "$cmd" "$INSTALL_DIR/commands/"
 done
 
 # Summary
 echo ""
-echo "Installation complete!"
+echo "Installation complete! ($INSTALL_MODE)"
 echo ""
 echo "Installed components:"
 
-skills=("$TARGET_DIR/.opencode/skills"/*/)
+skills=("$INSTALL_DIR/skills"/*/)
 echo "  Skills (${#skills[@]}):"
 for skill in "${skills[@]}"; do
     [ -e "$skill" ] || continue
     echo "    - $(basename "$skill")"
 done
 
-agents=("$TARGET_DIR/.opencode/agents"/*.md)
+agents=("$INSTALL_DIR/agents"/*.md)
 echo "  Agents (${#agents[@]}):"
 for agent in "${agents[@]}"; do
     [ -e "$agent" ] || continue
     echo "    - $(basename "$agent")"
 done
 
-commands=("$TARGET_DIR/.opencode/commands"/*.md)
+commands=("$INSTALL_DIR/commands"/*.md)
 echo "  Commands (${#commands[@]}):"
 for cmd in "${commands[@]}"; do
     [ -e "$cmd" ] || continue
@@ -73,4 +93,8 @@ for cmd in "${commands[@]}"; do
 done
 
 echo ""
-echo "Usage: Restart OpenCode in your project directory to load the new components."
+if [ "$INSTALL_MODE" = "global" ]; then
+    echo "Global plugins loaded automatically. Restart OpenCode to apply."
+else
+    echo "Restart OpenCode in your project directory to load the new components."
+fi

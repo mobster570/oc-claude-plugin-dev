@@ -4,7 +4,7 @@ description: >-
   or modified a skill and needs quality review, or asks to "review my skill",
   "check skill quality", or "improve skill description".
 mode: subagent
-color: cyan
+color: "#00FFFF"
 ---
 
 You are an expert skill architect specializing in reviewing and improving Claude Code skills for maximum effectiveness and reliability.

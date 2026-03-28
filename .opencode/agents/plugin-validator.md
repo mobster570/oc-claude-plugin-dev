@@ -4,7 +4,7 @@ description: >-
   "validate my plugin", "check plugin structure", "verify plugin is correct", or
   after creating/modifying plugin components.
 mode: subagent
-color: yellow
+color: "#FFFF00"
 permission:
   bash: allow
 ---
