@@ -39,7 +39,7 @@ bash install.sh
 
 ### Project-local install
 
-Installs to `<path>/.opencode/` for a specific project only.
+Installs to `<path>/.opencode/` for a specific project only. (Source files are in `plugin-src/`.)
 
 ```bash
 # Bash/macOS/Linux/WSL
@@ -52,10 +52,10 @@ bash install.sh /path/to/project
 ### Manual copy
 ```bash
 # Global
-cp -r .opencode/* ~/.config/opencode/
+cp -r plugin-src/* ~/.config/opencode/
 
 # Project-local
-cp -r .opencode/ /path/to/your/project/
+cp -r plugin-src/ /path/to/your/project/.opencode/
 ```
 
 ## Usage

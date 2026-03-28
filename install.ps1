@@ -8,7 +8,7 @@ param(
 )
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$SourceDir = Join-Path $ScriptDir ".opencode"
+$SourceDir = Join-Path $ScriptDir "plugin-src"
 
 if ($TargetDir) {
     # Project-local install

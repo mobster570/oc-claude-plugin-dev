@@ -9,7 +9,7 @@ import { fileURLToPath } from "url"
  * them natively. This plugin bridges the gap using OpenCode's shell.env hook.
  *
  * - CLAUDE_PROJECT_DIR: project root directory (from OpenCode's plugin context)
- * - CLAUDE_PLUGIN_ROOT: .opencode/ directory (derived from this plugin's location)
+ * - CLAUDE_PLUGIN_ROOT: plugin root directory (derived from this plugin's location)
  */
 
 const __filename = fileURLToPath(import.meta.url)

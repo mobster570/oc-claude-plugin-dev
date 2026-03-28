@@ -7,7 +7,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_DIR="$SCRIPT_DIR/.opencode"
+SOURCE_DIR="$SCRIPT_DIR/plugin-src"
 
 if [ -n "$1" ]; then
     # Project-local install

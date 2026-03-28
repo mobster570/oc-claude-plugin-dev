@@ -12,7 +12,7 @@ Ported Anthropic Claude Code plugin development resources for OpenCode. Document
 
 ```
 ./
-├── .opencode/
+├── plugin-src/
 │   ├── agents/           # 4 autonomous subagents (.md with YAML frontmatter)
 │   ├── commands/         # 1 guided workflow (/create-plugin)
 │   └── skills/           # 8 skill modules (SKILL.md + references/ + examples/)
@@ -47,9 +47,9 @@ Ported Anthropic Claude Code plugin development resources for OpenCode. Document
 | Review skill quality | `agents/skill-reviewer.md` | Reviews triggering effectiveness |
 | Claude Code docs expert | `agents/claude-code-guide.md` | Read-only documentation agent |
 | Generate new agents | `agents/agent-creator.md` | Creates agent configs from requirements |
-| Install to another project | `install.sh` / `install.ps1` | Copies `.opencode/` to target dir |
+| Install to another project | `install.sh` / `install.ps1` | Copies `plugin-src/` to target `.opencode/` dir |
 
-All paths relative to `.opencode/` unless noted.
+All paths relative to `plugin-src/` unless noted.
 
 ## CONVENTIONS
 
@@ -95,19 +95,19 @@ bash install.sh /path/to/project          # Unix/macOS/WSL
 powershell .\install.ps1 -TargetDir C:\path  # Windows
 
 # Validate hooks
-.opencode/skills/hook-development/scripts/validate-hook-schema.sh path/to/hooks.json
+plugin-src/skills/hook-development/scripts/validate-hook-schema.sh path/to/hooks.json
 
 # Lint hook scripts
-.opencode/skills/hook-development/scripts/hook-linter.sh path/to/hook.sh
+plugin-src/skills/hook-development/scripts/hook-linter.sh path/to/hook.sh
 
 # Validate agent files
-.opencode/skills/agent-development/scripts/validate-agent.sh path/to/agent.md
+plugin-src/skills/agent-development/scripts/validate-agent.sh path/to/agent.md
 
 # Run skill evaluations (requires Python 3.x + Claude CLI)
-python .opencode/skills/skill-creator/scripts/run_eval.py --skill-path <path> --evals <evals.json>
+python plugin-src/skills/skill-creator/scripts/run_eval.py --skill-path <path> --evals <evals.json>
 
 # Quick-validate a skill
-python .opencode/skills/skill-creator/scripts/quick_validate.py <skill-dir>
+python plugin-src/skills/skill-creator/scripts/quick_validate.py <skill-dir>
 ```
 
 ## NOTES
