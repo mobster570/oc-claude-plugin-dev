@@ -25,17 +25,36 @@ This repository contains ported versions of Anthropic's official Claude Code plu
 
 ## Installation
 
-### Using install script (recommended)
+### Global install (recommended)
+
+Installs to `~/.config/opencode/` so plugins are available in all projects.
+
 ```bash
 # Bash/macOS/Linux/WSL
-bash install.sh [target-directory]
+bash install.sh
 
 # PowerShell/Windows
-.\install.ps1 [-TargetDir <path>]
+.\install.ps1
+```
+
+### Project-local install
+
+Installs to `<path>/.opencode/` for a specific project only.
+
+```bash
+# Bash/macOS/Linux/WSL
+bash install.sh /path/to/project
+
+# PowerShell/Windows
+.\install.ps1 -TargetDir C:\path\to\project
 ```
 
 ### Manual copy
 ```bash
+# Global
+cp -r .opencode/* ~/.config/opencode/
+
+# Project-local
 cp -r .opencode/ /path/to/your/project/
 ```
 
