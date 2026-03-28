@@ -6,6 +6,8 @@ version: 0.1.0
 
 # MCP Integration for Claude Code Plugins
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`) and example MCP configurations (`examples/`). All resource paths referenced below are relative to this skill's base directory (shown above).
+
 ## Overview
 
 Model Context Protocol (MCP) enables Claude Code plugins to integrate with external services and APIs by providing structured tool access. Use MCP integration to expose external service capabilities as tools within Claude Code.

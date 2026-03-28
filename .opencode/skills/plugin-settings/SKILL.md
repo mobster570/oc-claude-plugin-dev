@@ -6,6 +6,8 @@ version: 0.1.0
 
 # Plugin Settings Pattern for Claude Code Plugins
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`), working examples (`examples/`), and utility scripts (`scripts/`). All resource paths referenced below are relative to this skill's base directory (shown above).
+
 ## Overview
 
 Plugins can store user-configurable settings and state in `.claude/plugin-name.local.md` files within the project directory. This pattern uses YAML frontmatter for structured configuration and markdown content for prompts or additional context.

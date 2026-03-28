@@ -5,6 +5,8 @@ description: Create new skills, modify and improve existing skills, and measure 
 
 # Skill Creator
 
+> **Bundled Resources:** This skill includes Python scripts (`scripts/`), evaluation agents (`agents/`), reference schemas (`references/`), an eval viewer (`eval-viewer/`), and HTML assets (`assets/`). All resource paths referenced below are relative to this skill's base directory (shown above). Python scripts should be invoked from this skill's base directory (e.g., `cd <base_directory> && python -m scripts.run_eval ...`).
+
 A skill for creating new skills and iteratively improving them.
 
 At a high level, the process of creating a skill goes like this:

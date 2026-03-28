@@ -6,6 +6,8 @@ version: 0.2.0
 
 # Command Development for Claude Code
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`) and command examples (`examples/`). All resource paths referenced below are relative to this skill's base directory (shown above).
+
 > **Note:** The `.claude/commands/` directory is a legacy format. For new skills, use the `.claude/skills/<name>/SKILL.md` directory format. Both are loaded identically — the only difference is file layout. See the `skill-development` skill for the preferred format.
 
 ## Overview

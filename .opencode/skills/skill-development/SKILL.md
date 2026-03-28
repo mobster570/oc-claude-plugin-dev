@@ -6,6 +6,8 @@ version: 0.1.0
 
 # Skill Development for Claude Code Plugins
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`). Resource paths referenced below are relative to this skill's base directory (shown above).
+
 This skill provides guidance for creating effective skills for Claude Code plugins.
 
 ## About Skills

@@ -135,7 +135,7 @@ This agent will trigger when [triggering scenarios].
 
 Test it by: [suggest test scenario]
 
-Validate with: `scripts/validate-agent.sh agents/[identifier].md`
+Validate with the `agent-development` skill's validation script: `scripts/validate-agent.sh agents/[identifier].md` (located in the `agent-development` skill's base directory)
 
 ### Next Steps
 [Recommendations for testing, integration, or improvements]

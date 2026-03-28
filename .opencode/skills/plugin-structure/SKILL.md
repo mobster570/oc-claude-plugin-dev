@@ -6,6 +6,8 @@ version: 0.1.0
 
 # Plugin Structure for Claude Code
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`) and example plugin structures (`examples/`). All resource paths referenced below are relative to this skill's base directory (shown above).
+
 ## Overview
 
 Claude Code plugins follow a standardized directory structure with automatic component discovery. Understanding this structure enables creating well-organized, maintainable plugins that integrate seamlessly with Claude Code.

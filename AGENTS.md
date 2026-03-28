@@ -68,7 +68,7 @@ skill-name/
 
 **Commands**: Single `.md` with frontmatter. Legacy format — prefer `skills/` for new components.
 
-**Paths**: Use `${CLAUDE_PLUGIN_ROOT}` for intra-plugin references. Never hardcode absolute paths.
+**Paths**: In educational content about Claude Code plugins, `${CLAUDE_PLUGIN_ROOT}` is the standard convention for intra-plugin references. For accessing this project's own skill resources (scripts, references, examples), use paths relative to each skill's base directory — OpenCode provides the base directory path when loading a skill.
 
 **Tool name mapping** (Claude Code → OpenCode):
 - `AskUserQuestion` → `question`

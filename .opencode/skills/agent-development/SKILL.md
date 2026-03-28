@@ -6,6 +6,8 @@ version: 0.1.0
 
 # Agent Development for Claude Code Plugins
 
+> **Bundled Resources:** This skill includes reference documentation (`references/`), agent examples (`examples/`), and validation scripts (`scripts/`). All resource paths referenced below are relative to this skill's base directory (shown above).
+
 ## Overview
 
 Agents are autonomous subprocesses that handle complex, multi-step tasks independently. Understanding agent structure, triggering conditions, and system prompt design enables creating powerful autonomous capabilities.

@@ -57,7 +57,7 @@ hook-development/
 - **Always quote** variables: `"$variable"` — prevents injection
 - **Always read stdin**: hooks receive JSON input via stdin
 - **Errors to stderr**: `echo "error" >&2`
-- **Paths**: Use `${CLAUDE_PLUGIN_ROOT}` — never hardcode absolute paths
+- **Paths**: In Claude Code plugin examples, use `${CLAUDE_PLUGIN_ROOT}`. For this skill's own bundled resources, use paths relative to the skill's base directory (provided by OpenCode at load time)
 - **Timeouts**: hooks.json supports 1-300 second range
 - **Prompt hooks preferred**: Use `"type": "prompt"` for context-aware validation. Supported on: Stop, SubagentStop, UserPromptSubmit, PreToolUse
 - **Hook events**: PreToolUse, PostToolUse, Stop, SubagentStop, SessionStart, SessionEnd, UserPromptSubmit, PreCompact, Notification

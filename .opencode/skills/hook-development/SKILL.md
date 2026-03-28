@@ -6,6 +6,8 @@ version: 0.1.0
 
 # Hook Development for Claude Code Plugins
 
+> **Bundled Resources:** This skill includes utility scripts (`scripts/`), reference documentation (`references/`), and example hook implementations (`examples/`). All resource paths referenced below are relative to this skill's base directory (shown above). To access a resource, prepend the base directory path to the relative path.
+
 ## Overview
 
 Hooks are event-driven automation scripts that execute in response to Claude Code events. Use hooks to validate operations, enforce policies, add context, and integrate external tools into workflows.

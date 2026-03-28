@@ -82,6 +82,7 @@ To start the guided plugin creation workflow, run:
 - `claude -p` calls in skill-creator scripts require the Claude Code CLI to be installed.
 - Agent triggering behavior may differ between Claude Code and OpenCode.
 - Skill content teaches Claude Code plugin development (this is intentional, as the goal is to build plugins for Claude Code).
+- `${CLAUDE_PLUGIN_ROOT}` and other `CLAUDE_*` environment variables appear extensively in skill content as Claude Code educational examples. These are not resolved by OpenCode. Each skill's bundled resources (scripts, references, examples) are accessed via paths relative to the skill's base directory, which OpenCode provides at skill load time.
 
 ## Component Compatibility
 
