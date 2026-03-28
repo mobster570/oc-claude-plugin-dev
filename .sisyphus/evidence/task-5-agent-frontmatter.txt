@@ -1,3 +1,0 @@
-agent-creator.md: description=OK, mode=subagent,no-Claude-fields, YAML=OK
-plugin-validator.md: description=OK, mode=subagent,no-Claude-fields, YAML=OK
-skill-reviewer.md: description=OK, mode=subagent,no-Claude-fields, YAML=OK
