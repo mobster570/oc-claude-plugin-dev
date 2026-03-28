@@ -64,6 +64,24 @@ To start the guided plugin creation workflow, run:
 - Agent triggering behavior may differ between Claude Code and OpenCode.
 - Skill content teaches Claude Code plugin development (this is intentional, as the goal is to build plugins for Claude Code).
 
+## Component Compatibility
+
+| Component | Type | Status | Notes |
+|-----------|------|--------|-------|
+| `plugin-structure` | Skill | ✅ Works as-is | Copied verbatim |
+| `skill-development` | Skill | ✅ Works as-is | Copied verbatim |
+| `hook-development` | Skill | ✅ Works as-is | Copied verbatim |
+| `mcp-integration` | Skill | ✅ Works as-is | Copied verbatim |
+| `command-development` | Skill | ✅ Works as-is | Copied verbatim |
+| `agent-development` | Skill | ✅ Works as-is | Copied verbatim |
+| `plugin-settings` | Skill | ✅ Works as-is | Copied verbatim |
+| `skill-creator` | Skill | ✅ Works as-is | Copied verbatim; eval scripts require `claude` CLI |
+| `agent-creator` | Agent | ✅ Converted | Frontmatter converted to OpenCode format |
+| `plugin-validator` | Agent | ✅ Converted | Frontmatter converted to OpenCode format |
+| `skill-reviewer` | Agent | ✅ Converted | Frontmatter converted to OpenCode format |
+| `claude-code-guide` | Agent | ✅ New | Created from Claude Code v2.1.86 system prompt |
+| `/create-plugin` | Command | ✅ Converted | Frontmatter converted; tool names mapped in body |
+
 ## License
 
 Original plugin content by Anthropic. See individual skill directories for license files.
