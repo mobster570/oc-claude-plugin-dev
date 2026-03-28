@@ -4,7 +4,7 @@ description: >-
   "create an agent", "generate an agent", "build a new agent", or describes agent
   functionality they need for a Claude Code plugin.
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-sonnet-4-6
 color: "#FF00FF"
 permission:
   edit: allow
