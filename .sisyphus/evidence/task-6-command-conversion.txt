@@ -1,0 +1,4 @@
+create-plugin.md: description=OK, no argument-hint, no allowed-tools, YAML=OK
+Body contains $ARGUMENTS: YES
+Body contains compatibility note: YES
+Body line count: 438
