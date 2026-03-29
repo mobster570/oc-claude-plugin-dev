@@ -41,6 +41,18 @@ Installs to `<path>/.opencode/` for a specific project only. (Source files are i
 python install.py /path/to/project
 ```
 
+### Uninstall
+
+Removes only the components installed by this project, leaving other plugins intact.
+
+```bash
+# Global
+python uninstall.py
+
+# Project-local
+python uninstall.py /path/to/project
+```
+
 ### Manual copy
 ```bash
 # Global
