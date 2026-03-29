@@ -33,12 +33,6 @@ print(f"Source: {source_dir}")
 print(f"Target: {install_dir}")
 print()
 
-# Check if target already exists
-if install_dir.exists():
-    print(f"WARNING: {install_dir} already exists.")
-    print("Merging into existing directory (existing files may be overwritten).")
-    print()
-
 # Create target directories and copy components
 for component in COMPONENTS:
     target = install_dir / component
