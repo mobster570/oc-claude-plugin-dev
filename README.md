@@ -30,11 +30,7 @@ This repository contains ported versions of Anthropic's official Claude Code plu
 Installs to `~/.config/opencode/` so plugins are available in all projects.
 
 ```bash
-# Bash/macOS/Linux/WSL
-bash install.sh
-
-# PowerShell/Windows
-.\install.ps1
+python install.py
 ```
 
 ### Project-local install
@@ -42,11 +38,7 @@ bash install.sh
 Installs to `<path>/.opencode/` for a specific project only. (Source files are in `plugin-src/`.)
 
 ```bash
-# Bash/macOS/Linux/WSL
-bash install.sh /path/to/project
-
-# PowerShell/Windows
-.\install.ps1 -TargetDir C:\path\to\project
+python install.py /path/to/project
 ```
 
 ### Manual copy
